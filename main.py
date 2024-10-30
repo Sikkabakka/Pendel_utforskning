@@ -13,7 +13,6 @@ pygame.display.set_caption("Pendel GUD")
 
 pygame.display.update()
 
-running = True
 
 
 tester = Tester(screen, pygame.Vector2(width/2, 50))

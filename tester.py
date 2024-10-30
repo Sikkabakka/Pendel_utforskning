@@ -5,11 +5,10 @@ class Tester:
 
     def __init__(self,  window, pendel_top):
         self.window = window
-        self.multiple_pendel = False
-        self.double_pendel = False
-        self.list_of_pendels = []
-        self.pendel_top = pendel_top
 
+        self.list_of_pendels = 0
+        self.pendel_top = pendel_top
+        self.double_pendel = 0
     def draw_pendel(self, start_position, end_position, radius = 5):
         pygame.draw.line(self.window, "grey", start_position, end_position, 2)
         pygame.draw.circle(self.window, "black", end_position, radius)
@@ -18,13 +17,9 @@ class Tester:
         self.list_of_pendels = []
         for i in range(amount):
             self.list_of_pendels.append(Pendel(spacing* (i)+first_space,self.pendel_top, starting_angle, 10, 0))
-        self.multiple_pendel = True
 
-    def make_double_pendel(self):
-        first_pendel = Pendel(50, self.pendel_top, 45, 1, 1)
-        second_pendel = Pendel(50, first_pendel.position , 45, 1, 1)
-
-        pass
+    def make_double_pendel(self, starting_angle):
+        self.double_pendel = Doublependel(100, self.pendel_top, starting_angle, 1)
 
     def run(self):
         TARGET_FPS = 60
@@ -39,10 +34,14 @@ class Tester:
                     
             self.window.fill("white") 
 
-            if self.multiple_pendel:
+            if self.list_of_pendels:
                 for pendel in self.list_of_pendels:
                     self.draw_pendel(self.pendel_top, (pendel.position.x, pendel.position.y))
                     pendel.update(dt)
+            if self.double_pendel:
+                self.draw_pendel(self.double_pendel.p1.start_position, (self.double_pendel.p1.position.x, self.double_pendel.p1.position.y ))
+                self.draw_pendel(self.double_pendel.p2.start_position, (self.double_pendel.p2.position.x, self.double_pendel.p2.position.y ))
+                self.double_pendel.update(dt)
 
             pygame.display.update()
         

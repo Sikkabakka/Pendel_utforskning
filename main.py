@@ -16,9 +16,9 @@ pygame.display.update()
 
 
 tester = Tester(screen, pygame.Vector2(width/2, 50))
-# tester.multiple_pendels( 40, 10, 10)
-tester.make_double_pendel(45)
+# tester.multiple_pendels( 5, 40, 40)
+tester.make_double_pendel(45, 180)
 tester.run()
 
-
 pygame.quit()
+

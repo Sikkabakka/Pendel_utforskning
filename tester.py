@@ -18,8 +18,12 @@ class Tester:
         for i in range(amount):
             self.list_of_pendels.append(Pendel(spacing* (i)+first_space,self.pendel_top, starting_angle, 10, 0))
 
-    def make_double_pendel(self, starting_angle):
-        self.double_pendel = Doublependel(100, self.pendel_top, starting_angle, 1)
+    def make_double_pendel(self, starting_angle, second_starting_angle):
+        first_length = 100
+        second_length = 200
+        first_mass = 1
+        second_mass = 2
+        self.double_pendel = Doublependel(first_length, second_length,  self.pendel_top, starting_angle, second_starting_angle, first_mass, second_mass)
 
     def run(self):
         TARGET_FPS = 60

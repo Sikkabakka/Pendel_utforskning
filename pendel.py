@@ -17,18 +17,17 @@ class Pendel:
 
         self.luftmotstand = luft_motstand
         self.angle = self.start_angle
-
+        self.starting_e = start_position.x * mass * self.gravitation
+        self.is_right = True
 
     def start_pos(self):
         end_pos_vec = pygame.Vector2(-np.cos(self.start_angle) * self.length, np.sin(self.start_angle) * self.length) + self.start_position  
         return pygame.Vector2(round(end_pos_vec.x), round(end_pos_vec.y))
 
     def calc_acceleration(self):
-        print(-self.luftmotstand * self.velocity**2)
         luftmotstandskraft = -self.luftmotstand * self.velocity * abs(self.velocity)
         self.acceleration = -(self.gravitation * np.sin(self.angle) -luftmotstandskraft)/self.length
         return self.acceleration
-    
     def update_position(self):
         position_x = self.length * np.sin(self.angle) +self.start_position.x 
         position_y = self.length * np.cos(self.angle) +self.start_position.y
@@ -45,9 +44,9 @@ class Pendel:
 class Doublependel():
 
 
-    def __init__(self, length, start_position, start_angle, mass):
-        self.p1 = Pendel(length, start_position, start_angle, mass)
-        self.p2 = Pendel(length, self.p1.position, start_angle, mass)
+    def __init__(self, first_length, second_length, start_position, start_angle, second_starting_angle, mass, second_mass):
+        self.p1 = Pendel(first_length, start_position, start_angle, mass)
+        self.p2 = Pendel(second_length *2, self.p1.position, second_starting_angle, second_mass)
     def update(self, dt):
         g = 9.81
         num1 = -g * (2 * self.p1.mass + self.p2.mass) * np.sin(self.p1.angle)
@@ -57,7 +56,7 @@ class Doublependel():
         den = self.p1.length * (2 * self.p1.mass + self.p2.mass - self.p2.mass * np.cos(2 * self.p1.angle - 2 * self.p2.angle))
         
         self.p1.acceleration = (num1 + num2 + num3 * num4) / den * dt
-        print(self.p1.acceleration)
+
         #p1.aAcc må du sjekke ut
         num1 = 2 * np.sin(self.p1.angle - self.p2.angle)
         num2 = np.square(self.p1.velocity) * self.p1.length * (self.p1.mass + self.p2.mass)

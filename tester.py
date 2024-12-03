@@ -18,19 +18,15 @@ class Tester:
         for i in range(amount):
             self.list_of_pendels.append(Pendel(spacing* (i)+first_space,self.pendel_top, starting_angle, 10, 0))
 
-    def make_double_pendel(self, starting_angle, second_starting_angle):
-        first_length = 100
-        second_length = 200
-        first_mass = 1
-        second_mass = 2
+    def make_double_pendel(self, starting_angle, second_starting_angle, first_length, second_length, first_mass, second_mass):
         self.double_pendel = Doublependel(first_length, second_length,  self.pendel_top, starting_angle, second_starting_angle, first_mass, second_mass)
 
     def run(self):
-        TARGET_FPS = 60
+        FPS = 60
         clock = pygame.time.Clock()
         running = True
         while running:
-            dt = clock.tick(TARGET_FPS) / 1000.0  
+            dt = clock.tick(FPS) / 1000.0  
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -43,8 +39,8 @@ class Tester:
                     self.draw_pendel(self.pendel_top, (pendel.position.x, pendel.position.y))
                     pendel.update(dt)
             if self.double_pendel:
-                self.draw_pendel(self.double_pendel.p1.start_position, (self.double_pendel.p1.position.x, self.double_pendel.p1.position.y ))
-                self.draw_pendel(self.double_pendel.p2.start_position, (self.double_pendel.p2.position.x, self.double_pendel.p2.position.y ))
+                self.draw_pendel(self.double_pendel.p1.start_position, (self.double_pendel.p1.position.x, self.double_pendel.p1.position.y ), 5)
+                self.draw_pendel(self.double_pendel.p2.start_position, (self.double_pendel.p2.position.x, self.double_pendel.p2.position.y ), 5)
                 self.double_pendel.update(dt)
 
             pygame.display.update()

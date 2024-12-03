@@ -46,7 +46,7 @@ class Doublependel():
 
     def __init__(self, first_length, second_length, start_position, start_angle, second_starting_angle, mass, second_mass):
         self.p1 = Pendel(first_length, start_position, start_angle, mass)
-        self.p2 = Pendel(second_length *2, self.p1.position, second_starting_angle, second_mass)
+        self.p2 = Pendel(second_length, self.p1.position, second_starting_angle, second_mass)
     def update(self, dt):
         g = 9.81
         num1 = -g * (2 * self.p1.mass + self.p2.mass) * np.sin(self.p1.angle)
@@ -65,8 +65,6 @@ class Doublependel():
         den = self.p2.length * (2 * self.p1.mass + self.p2.mass - self.p2.mass * np.cos(2 * self.p1.angle - 2 * self.p2.angle))
 
         self.p2.acceleration = (num1 * (num2 + num3 + num4)) / den *dt
-
-
        
         self.p1.velocity += self.p1.acceleration
         self.p1.angle += self.p1.velocity
